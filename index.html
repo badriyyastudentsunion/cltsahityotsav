@@ -14,35 +14,41 @@
         body {
             background-color: #000;
             color: #fff;
-            font-family: 'Arial', sans-serif;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Arial, sans-serif;
             min-height: 100vh;
             display: flex;
             align-items: center;
             justify-content: center;
             overflow: hidden;
+            padding: 20px;
         }
 
         .container {
             text-align: center;
+            width: 100%;
+            max-width: 400px;
         }
 
         .coming-soon {
-            font-size: 4rem;
+            font-size: clamp(2.5rem, 8vw, 4rem);
             font-weight: 300;
-            letter-spacing: 0.1em;
+            letter-spacing: 0.05em;
+            line-height: 1.2;
             opacity: 0;
             animation: fadeInUp 1.5s ease-out forwards;
+            margin-bottom: 1rem;
         }
 
         .dots {
             display: inline-flex;
-            gap: 0.5rem;
+            gap: 0.75rem;
             margin-left: 1rem;
+            align-items: center;
         }
 
         .dot {
-            width: 6px;
-            height: 6px;
+            width: 8px;
+            height: 8px;
             background-color: #fff;
             border-radius: 50%;
             animation: pulse 1.4s infinite ease-in-out;
@@ -56,7 +62,7 @@
         @keyframes fadeInUp {
             from {
                 opacity: 0;
-                transform: translateY(50px);
+                transform: translateY(30px);
             }
             to {
                 opacity: 1;
@@ -75,16 +81,82 @@
             }
         }
 
-        /* Responsive */
+        /* Mobile-specific optimizations */
         @media (max-width: 768px) {
+            body {
+                padding: 16px;
+            }
+            
             .coming-soon {
-                font-size: 2.5rem;
+                font-size: clamp(2rem, 10vw, 3rem);
+                letter-spacing: 0.03em;
+                margin-bottom: 0.5rem;
+            }
+            
+            .dots {
+                gap: 0.5rem;
+                margin-left: 0.75rem;
+            }
+            
+            .dot {
+                width: 6px;
+                height: 6px;
             }
         }
 
         @media (max-width: 480px) {
             .coming-soon {
-                font-size: 2rem;
+                font-size: clamp(1.75rem, 12vw, 2.5rem);
+                line-height: 1.1;
+            }
+            
+            .dots {
+                gap: 0.4rem;
+                margin-left: 0.5rem;
+            }
+            
+            .dot {
+                width: 5px;
+                height: 5px;
+            }
+        }
+
+        /* Landscape orientation for mobile */
+        @media (max-height: 500px) and (orientation: landscape) {
+            body {
+                padding: 10px;
+            }
+            
+            .coming-soon {
+                font-size: clamp(1.5rem, 8vh, 2.5rem);
+            }
+        }
+
+        /* High contrast for better readability */
+        @media (prefers-contrast: high) {
+            .coming-soon {
+                font-weight: 400;
+            }
+            
+            .dot {
+                background-color: #ffffff;
+            }
+        }
+
+        /* Reduced motion for accessibility */
+        @media (prefers-reduced-motion: reduce) {
+            .coming-soon {
+                animation: fadeIn 1s ease-out forwards;
+            }
+            
+            .dot {
+                animation: none;
+                opacity: 1;
+            }
+            
+            @keyframes fadeIn {
+                from { opacity: 0; }
+                to { opacity: 1; }
             }
         }
     </style>
